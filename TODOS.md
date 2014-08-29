@@ -5,3 +5,4 @@ Short todos list
 * Cleanup inputParser method.
 * Perform actions on inputBuffer if contains data.
 * Handle stack overflow.
+* Handle number format error.
