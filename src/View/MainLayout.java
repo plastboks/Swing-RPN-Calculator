@@ -38,7 +38,7 @@ public class MainLayout extends JFrame implements ActionListener
     private MainController ctrl;
     private KeyBindings kb;
 
-    private int visibleStackCount = 8;
+    private int visibleStackCount = 7;
 
     private JPanel screenPanel;
     private JPanel buttonPanel;
@@ -90,6 +90,7 @@ public class MainLayout extends JFrame implements ActionListener
         for (int c=0; c<buttonNames.length; c++) {
             buttons[c] = new JButton(buttonNames[c]);
             buttons[c].addActionListener(this);
+            buttons[c].setPreferredSize(new Dimension(20, 25));
             buttonPanel.add(buttons[c]);
         }
     }
@@ -120,9 +121,9 @@ public class MainLayout extends JFrame implements ActionListener
 
         int length = visibleStackCount;
         for (int i=length; i>=0; i--) {
+            output.append(i+1+":   ");
             output.append(df.format(s[i]));
-            if (i != 0)
-                output.append("\n");
+            if (i != 0) output.append("\n");
         }
         stackArea.setText(output.toString());
     }
@@ -190,5 +191,4 @@ public class MainLayout extends JFrame implements ActionListener
     {
         bufferArea.setText(inputBuffer.toString());
     }
-
 }

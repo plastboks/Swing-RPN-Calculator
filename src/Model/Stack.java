@@ -51,7 +51,7 @@ public class Stack {
 
     public void swap()
     {
-        if (tos < 0) return;
+        if (tos <= 0) return;
 
         double rightOperand = pop();
         double leftOperand = pop();
