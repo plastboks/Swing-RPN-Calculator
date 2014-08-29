@@ -8,8 +8,7 @@ package View;
 
 import Controller.MainController;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class MainLayout extends JFrame implements ActionListener
@@ -34,15 +33,17 @@ public class MainLayout extends JFrame implements ActionListener
     };
 
     private MainController ctrl;
+    private KeyBindings kb;
 
     private int visibleStackCount = 8;
 
     private JPanel screenPanel;
     private JPanel buttonPanel;
-    private JPanel mainPanel;
     private JTextPane stackArea;
     private JTextPane bufferArea;
     private JButton[] buttons;
+
+    public JPanel mainPanel;
     private StringBuilder inputBuffer;
 
     public MainLayout(MainController ctrl)
@@ -56,6 +57,7 @@ public class MainLayout extends JFrame implements ActionListener
         initMainPanel();
         updateStackArea();
 
+        kb = new KeyBindings(this);
     }
 
     private void initScreens()
@@ -95,7 +97,7 @@ public class MainLayout extends JFrame implements ActionListener
         mainPanel.setLayout(new BorderLayout(1,2));
         mainPanel.add(screenPanel, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,5));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
 
         this.setContentPane(mainPanel);
         this.pack();
@@ -119,11 +121,6 @@ public class MainLayout extends JFrame implements ActionListener
                 output.append("\n");
         }
         stackArea.setText(output.toString());
-    }
-
-    private void updateInputBufferArea()
-    {
-        bufferArea.setText(inputBuffer.toString());
     }
 
     private boolean isValidInputBufferKey(String k)
@@ -154,7 +151,11 @@ public class MainLayout extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent event)
     {
-        String eKey = event.getActionCommand();
+        parseInput(event.getActionCommand());
+    }
+
+    public void parseInput(String eKey)
+    {
         if (isValidInputBufferKey(eKey)) {
             inputBuffer.append(eKey);
         } else if (isValidInputBufferBackspace(eKey)) {
@@ -171,7 +172,12 @@ public class MainLayout extends JFrame implements ActionListener
             initStringBuilder();
             updateStackArea();
         }
-
         updateInputBufferArea();
     }
+
+    public void updateInputBufferArea()
+    {
+        bufferArea.setText(inputBuffer.toString());
+    }
+
 }

@@ -11,10 +11,10 @@ public class App {
     public static void main(String[] args)
     {
         Controller.MainController ctrl = new MainController();
-        View.MainLayout mw = new MainLayout(ctrl);
+        View.MainLayout ml = new MainLayout(ctrl);
 
-        mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mw.setSize(350,385);
-        mw.setVisible(true);
+        ml.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ml.setSize(350,385);
+        ml.setVisible(true);
     }
 }
