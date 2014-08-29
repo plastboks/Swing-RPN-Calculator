@@ -15,18 +15,18 @@ import javax.swing.*;
 public class MainLayout extends JFrame implements ActionListener
 {
     private static final String[] buttonNames = {
-            "Bcksp", "Drop", "Swap", "Clear",
-            "PI", "Sin", "Cos", "Tan",
-            "+/-", "1/x", "Sqrt", "Y^x",
-            "7", "8", "9", "/",
-            "4", "5", "6", "*",
-            "1", "2", "3", "-",
-            "0", ".", "Enter", "+",
+            "Clear", "Drop", "Swap", "Bcksp",
+            "π", "Sin", "Cos", "Tan",
+            "Y^x", "Sqrt", "1/x", "/",
+            "7", "8", "9", "*",
+            "4", "5", "6", "-",
+            "1", "2", "3", "+",
+            "0", ".", "+/-", "Enter"
     };
     private static final String[] validInputBufferKeys = {
             "0", "1", "2", "3", "4",
             "5", "6", "7", "8", "9",
-            ".", "PI"
+            ".", "π"
     };
     private static final String[] validOperatorKeys = {
             "Drop", "Swap", "Clear", "Sin",
@@ -42,8 +42,8 @@ public class MainLayout extends JFrame implements ActionListener
 
     private JPanel screenPanel;
     private JPanel buttonPanel;
-    private JTextPane stackArea;
-    private JTextPane bufferArea;
+    private JTextPane stackPane;
+    private JTextPane bufferPane;
     private JButton[] buttons;
 
     public JPanel mainPanel;
@@ -65,20 +65,20 @@ public class MainLayout extends JFrame implements ActionListener
 
     private void initScreens()
     {
-        stackArea = new JTextPane();
-        stackArea.setBackground(Color.WHITE);
-        stackArea.setDisabledTextColor(Color.BLACK);
-        stackArea.setEnabled(false);
+        stackPane = new JTextPane();
+        stackPane.setBackground(Color.WHITE);
+        stackPane.setDisabledTextColor(Color.BLACK);
+        stackPane.setEnabled(false);
 
-        bufferArea = new JTextPane();
-        bufferArea.setBackground(Color.WHITE);
-        bufferArea.setDisabledTextColor(Color.BLACK);
-        bufferArea.setEnabled(false);
+        bufferPane = new JTextPane();
+        bufferPane.setBackground(Color.WHITE);
+        bufferPane.setDisabledTextColor(Color.BLACK);
+        bufferPane.setEnabled(false);
 
         screenPanel = new JPanel();
         screenPanel.setLayout(new BorderLayout(1, 2));
-        screenPanel.add(stackArea, BorderLayout.NORTH);
-        screenPanel.add(bufferArea, BorderLayout.SOUTH);
+        screenPanel.add(stackPane, BorderLayout.NORTH);
+        screenPanel.add(bufferPane, BorderLayout.SOUTH);
     }
 
     private void initButtons()
@@ -125,7 +125,7 @@ public class MainLayout extends JFrame implements ActionListener
             output.append(df.format(s[i]));
             if (i != 0) output.append("\n");
         }
-        stackArea.setText(output.toString());
+        stackPane.setText(output.toString());
     }
 
     private boolean isValidInputBufferKey(String k)
@@ -166,7 +166,7 @@ public class MainLayout extends JFrame implements ActionListener
          * Consider refactoring.
          */
         if (isValidInputBufferKey(eKey)) {
-            if (eKey == "PI")
+            if (eKey == "π")
                 inputBuffer.append(Math.PI);
             else
                 inputBuffer.append(eKey);
@@ -189,6 +189,6 @@ public class MainLayout extends JFrame implements ActionListener
 
     public void updateInputBufferArea()
     {
-        bufferArea.setText(inputBuffer.toString());
+        bufferPane.setText(inputBuffer.toString());
     }
 }
