@@ -56,6 +56,15 @@ public class MainController {
             case "Y^x":
                 stack.pow();
                 break;
+            case "Sin":
+                stack.sin();
+                break;
+            case "Cos":
+                stack.cos();
+                break;
+            case "Tan":
+                stack.tan();
+                break;
         }
     }
 }

@@ -9,12 +9,14 @@ package View;
 import Controller.MainController;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import javax.swing.*;
 
 public class MainLayout extends JFrame implements ActionListener
 {
     private static final String[] buttonNames = {
             "Bcksp", "Drop", "Swap", "Clear",
+            "PI", "Sin", "Cos", "Tan",
             "+/-", "1/x", "Sqrt", "Y^x",
             "7", "8", "9", "/",
             "4", "5", "6", "*",
@@ -24,12 +26,13 @@ public class MainLayout extends JFrame implements ActionListener
     private static final String[] validInputBufferKeys = {
             "0", "1", "2", "3", "4",
             "5", "6", "7", "8", "9",
-            "."
+            ".", "PI"
     };
     private static final String[] validOperatorKeys = {
-            "Drop", "Swap", "Clear",
-            "+/-", "1/x", "Sqrt", "Y^x",
-            "/", "*", "-", "+"
+            "Drop", "Swap", "Clear", "Sin",
+            "Cos", "Tan", "+/-", "1/x",
+            "Sqrt", "Y^x", "/", "*",
+            "-", "+"
     };
 
     private MainController ctrl;
@@ -81,7 +84,7 @@ public class MainLayout extends JFrame implements ActionListener
     private void initButtons()
     {
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(6,4,5,5));
+        buttonPanel.setLayout(new GridLayout(7,4,5,5));
 
         buttons = new JButton[buttonNames.length];
         for (int c=0; c<buttonNames.length; c++) {
@@ -111,12 +114,13 @@ public class MainLayout extends JFrame implements ActionListener
 
     private void updateStackArea()
     {
-        double[] s = ctrl.getStack();
+        DecimalFormat df = new DecimalFormat("0.00####");
         StringBuilder output = new StringBuilder();
+        double[] s = ctrl.getStack();
 
         int length = visibleStackCount;
         for (int i=length; i>=0; i--) {
-            output.append(s[i]);
+            output.append(df.format(s[i]));
             if (i != 0)
                 output.append("\n");
         }
@@ -156,8 +160,15 @@ public class MainLayout extends JFrame implements ActionListener
 
     public void parseInput(String eKey)
     {
+        /**
+         * Starting to get real ugly this...
+         * Consider refactoring.
+         */
         if (isValidInputBufferKey(eKey)) {
-            inputBuffer.append(eKey);
+            if (eKey == "PI")
+                inputBuffer.append(Math.PI);
+            else
+                inputBuffer.append(eKey);
         } else if (isValidInputBufferBackspace(eKey)) {
             if (inputBuffer.length() > 0)
                 inputBuffer.setLength(inputBuffer.length() -1);

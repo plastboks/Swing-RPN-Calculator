@@ -103,9 +103,7 @@ public class Stack {
     public void sqrt()
     {
         if (tos < 0) return;
-
-        double operand = pop();
-        push(Math.sqrt(operand));
+        push(Math.sqrt(pop()));
     }
 
     public void toggleScale()
@@ -119,9 +117,7 @@ public class Stack {
     public void reciprocal()
     {
         if (tos < 0) return;
-
-        double operand = pop();
-        push(1/operand);
+        push(1/pop());
     }
 
     public void pow()
@@ -131,5 +127,22 @@ public class Stack {
         double exponent = pop();
         double base = pop();
         push(Math.pow(base, exponent));
+    }
+
+    public void sin()
+    {
+        if (tos < 0) return;
+        push(Math.sin(pop()));
+    }
+
+    public void cos()
+    {
+        if (tos < 0) return;
+        push(Math.cos(pop()));
+    }
+
+    public void tan()
+    {
+        push(Math.tan(pop()));
     }
 }
