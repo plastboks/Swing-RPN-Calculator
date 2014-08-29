@@ -31,10 +31,11 @@ public class KeyBindings {
         addNumKeys();
         addCustomKey(KeyEvent.VK_ENTER, 0, "Enter");
         addCustomKey(KeyEvent.VK_BACK_SPACE, 0, "Bcksp");
-        addCustomKey(KeyEvent.VK_MINUS, 0, "-");
-        addCustomKey(KeyEvent.VK_PLUS, 0, "+");
+        addCustomKey(KeyEvent.VK_ASTERISK, 0, "*");
         addCustomKey(KeyEvent.VK_DIVIDE, 0, "/");
         addCustomKey(KeyEvent.VK_SLASH, 0, "/");
+        addCustomKey(KeyEvent.VK_PLUS, 0, "+");
+        addCustomKey(KeyEvent.VK_MINUS, 0, "-");
         addCustomKey(KeyEvent.VK_PERIOD, 0, ".");
 
         /**
