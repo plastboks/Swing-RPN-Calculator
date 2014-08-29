@@ -55,7 +55,6 @@ public class Stack {
 
         double rightOperand = pop();
         double leftOperand = pop();
-
         push(rightOperand);
         push(leftOperand);
     }

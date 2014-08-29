@@ -1,11 +1,12 @@
 /**
- * Created by alex on 8/28/14.
+ * Created by alex on 8/28/14.o
+ *
+ * This is the projects main (and only) layout file.
  */
 
 package View;
 
 import Controller.MainController;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,7 +27,6 @@ public class MainLayout extends JFrame implements ActionListener
             "5", "6", "7", "8", "9",
             "."
     };
-
     private static final String[] validOperatorKeys = {
             "Drop", "Swap", "Clear",
             "+/-", "1/x", "Sqrt", "Y^x",
@@ -42,40 +42,36 @@ public class MainLayout extends JFrame implements ActionListener
     private JPanel mainPanel;
     private JTextPane stackArea;
     private JTextPane bufferArea;
-
     private JButton[] buttons;
     private StringBuilder inputBuffer;
 
     public MainLayout(MainController ctrl)
     {
         super("RPN Calculator");
-
         this.ctrl = ctrl;
 
         initStringBuilder();
-
         initButtons();
         initScreens();
         initMainPanel();
+        updateStackArea();
+
     }
 
     private void initScreens()
     {
-        screenPanel = new JPanel();
-        screenPanel.setLayout(new BorderLayout(1, 2));
-
         stackArea = new JTextPane();
         stackArea.setBackground(Color.WHITE);
         stackArea.setDisabledTextColor(Color.BLACK);
         stackArea.setEnabled(false);
-
-        updateStackArea();
 
         bufferArea = new JTextPane();
         bufferArea.setBackground(Color.WHITE);
         bufferArea.setDisabledTextColor(Color.BLACK);
         bufferArea.setEnabled(false);
 
+        screenPanel = new JPanel();
+        screenPanel.setLayout(new BorderLayout(1, 2));
         screenPanel.add(stackArea, BorderLayout.NORTH);
         screenPanel.add(bufferArea, BorderLayout.SOUTH);
     }
