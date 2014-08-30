@@ -39,7 +39,7 @@ public class MainController {
             case "Clear":
                 stack.clear();
                 return;
-            case "Sqrt":
+            case "sqrt":
                 stack.sqrt();
                 return;
             case "+/-":
@@ -51,14 +51,32 @@ public class MainController {
             case "x^2":
                 stack.pow(2);
                 return;
-            case "Sin":
+            case "sin":
                 stack.sin();
                 return;
-            case "Cos":
+            case "cos":
                 stack.cos();
                 return;
-            case "Tan":
+            case "tan":
                 stack.tan();
+                return;
+            case "ln":
+                stack.ln();
+                return;
+            case "log":
+                stack.log();
+                return;
+            case "n!":
+                stack.factorial();
+                return;
+            case "abs":
+                stack.abs();
+                return;
+            case "sign":
+                stack.sign();
+                return;
+            case "cot":
+                stack.cot();
                 return;
         }
         /**
@@ -79,6 +97,9 @@ public class MainController {
                 return;
             case "-":
                 stack.subtract();
+                return;
+            case "mod":
+                stack.modulus();
                 return;
             case "y^x":
                 stack.pow();

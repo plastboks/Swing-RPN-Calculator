@@ -71,7 +71,7 @@ public class KeyBindings {
     private void addCustomKeys()
     {
         addCustomKey(KeyEvent.VK_ENTER, 0, "Enter");
-        addCustomKey(KeyEvent.VK_BACK_SPACE, 0, "Bcksp");
+        addCustomKey(KeyEvent.VK_BACK_SPACE, 0, "<-");
         addCustomKey(KeyEvent.VK_ASTERISK, 0, "*");
         addCustomKey(KeyEvent.VK_DIVIDE, 0, "/");
         addCustomKey(KeyEvent.VK_SLASH, 0, "/");

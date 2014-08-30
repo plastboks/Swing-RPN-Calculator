@@ -21,13 +21,13 @@ import javax.swing.text.StyleConstants;
 public class MainLayout extends JFrame implements ActionListener
 {
     private static final String[] buttonNames = {
-            "Clear", "Drop", "Swap", "Bcksp",
-            "y^x", "Sin", "Cos", "Tan",
-            "x^2", "Sqrt", "1/x", "/",
-            "7", "8", "9", "*",
-            "4", "5", "6", "-",
-            "1", "2", "3", "+",
-            "0", ".", "+/-", "Enter"
+            "ln", "abs", "sign", "cot", "<-",
+            "log", "sin", "cos", "tan", "mod",
+            "y^x", "n!", "sqrt", "1/x", "/",
+            "x^2", "7", "8", "9", "*",
+            "Clear", "4", "5", "6", "-",
+            "Drop", "1", "2", "3", "+",
+            "Swap", "0", ".", "+/-", "Enter"
     };
     private static final String[] validInputBufferKeys = {
             "0", "1", "2", "3", "4",
@@ -35,10 +35,12 @@ public class MainLayout extends JFrame implements ActionListener
             "."
     };
     private static final String[] validOperatorKeys = {
-            "Drop", "Swap", "Clear", "Sin",
-            "Cos", "Tan", "+/-", "1/x",
-            "Sqrt", "y^x", "x^2", "/",
-            "*", "-", "+"
+            "Drop", "Swap", "Clear", "sin",
+            "cos", "tan", "+/-", "1/x",
+            "sqrt", "y^x", "x^2", "/",
+            "*", "-", "+", "ln", "log",
+            "n!", "mod", "abs", "sign",
+            "cot"
     };
 
     private MainController ctrl;
@@ -52,9 +54,7 @@ public class MainLayout extends JFrame implements ActionListener
     private JTextPane bufferPane;
     private Color paneBg = new Color(242,255,194);
     private JButton[] buttons;
-
     private StringBuilder inputBuffer;
-    private DecimalFormat df = new DecimalFormat("0.00####");
 
     public JPanel mainPanel;
 
@@ -110,7 +110,7 @@ public class MainLayout extends JFrame implements ActionListener
     private void initButtons()
     {
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(7,4,5,5));
+        buttonPanel.setLayout(new GridLayout(7,5,5,5));
 
         buttons = new JButton[buttonNames.length];
         for (int c=0; c<buttonNames.length; c++) {
@@ -149,7 +149,7 @@ public class MainLayout extends JFrame implements ActionListener
 
         int length = visibleStackCount;
         for (int i=length; i>=0; i--) {
-            output.append(df.format(s[i]));
+            output.append(s[i]);
             output.append(" : "+(i+1)+" ");
             if (i != 0) output.append("\n");
         }
@@ -184,6 +184,16 @@ public class MainLayout extends JFrame implements ActionListener
 
     private void commitOperatorKey(String k)
     {
+        /**
+         * Special case for the clear key
+         */
+        if (k == "Clear") {
+            int q = showQueryMessage(
+                    "Are you sure you want to clear the whole stack?"
+            );
+            if (q == JOptionPane.NO_OPTION)
+                return;
+        }
         commitInputBuffer();
         try {
             ctrl.operateOnStack(k);
@@ -211,11 +221,6 @@ public class MainLayout extends JFrame implements ActionListener
         bufferPane.setText(inputBuffer.toString());
     }
 
-    private void clearAndUpdatePanes()
-    {
-
-    }
-
     // --- Testers --- //
     private boolean isValidInputBufferKey(String k)
     {
@@ -240,7 +245,7 @@ public class MainLayout extends JFrame implements ActionListener
 
     private boolean isValidInputBufferBackspace(String k)
     {
-        return k == "Bcksp";
+        return k == "<-";
     }
 
     // --- event handlers --- //
@@ -269,5 +274,16 @@ public class MainLayout extends JFrame implements ActionListener
                 str,
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    public int showQueryMessage(String msg)
+    {
+        return JOptionPane.showOptionDialog(this,
+            msg,
+            "Question",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null, null, null
+            );
     }
 }

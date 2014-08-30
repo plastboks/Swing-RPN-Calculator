@@ -74,6 +74,7 @@ public class Stack {
         tos = -1;
     }
 
+    // -- two operand functions -- //
     public void multiply()
     {
         if (tos < 1) return;
@@ -110,6 +111,25 @@ public class Stack {
         push(leftOperand - rightOperand);
     }
 
+    public void modulus()
+    {
+        if (tos < 1) return;
+
+        double rightOperand = pop();
+        double leftOperand = pop();
+        push(leftOperand % rightOperand);
+    }
+
+    public void pow()
+    {
+        if (tos < 1) return;
+
+        double exponent = pop();
+        double base = pop();
+        push(Math.pow(base, exponent));
+    }
+
+    // -- one operand functions -- //
     public void sqrt()
     {
         if (tos < 0) return;
@@ -128,15 +148,6 @@ public class Stack {
     {
         if (tos < 0) return;
         push(1/pop());
-    }
-
-    public void pow()
-    {
-        if (tos < 1) return;
-
-        double exponent = pop();
-        double base = pop();
-        push(Math.pow(base, exponent));
     }
 
     public void pow(int exp)
@@ -161,6 +172,47 @@ public class Stack {
 
     public void tan()
     {
+        if (tos < 0) return;
         push(Math.tan(pop()));
+    }
+
+    public void ln()
+    {
+        if (tos < 0) return;
+        push(Math.log(pop()));
+    }
+
+    public void log()
+    {
+        if (tos < 0) return;
+        push(Math.log10(pop()));
+    }
+
+    public void factorial()
+    {
+        if (tos < 0) return;
+        int f = (int)pop();
+        for (int i=f-1; i>0; i--)
+            f *= i;
+
+        push((double)f);
+    }
+
+    public void abs()
+    {
+        if (tos < 0) return;
+        push(Math.abs(pop()));
+    }
+
+    public void sign()
+    {
+        if (tos < 0) return;
+        push(Math.signum(pop()));
+    }
+
+    public void cot()
+    {
+        if (tos < 0) return;
+        push(Math.cosh(pop()));
     }
 }
