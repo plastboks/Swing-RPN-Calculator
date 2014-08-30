@@ -1,59 +1,21 @@
 /**
  * Created by alex on 8/28/14.
- *
- * This is the projects main (and only) layout file.
  */
 
 package View;
 
 import Controller.MainController;
 import Controller.StackOperationError;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Arc2D;
-import java.text.DecimalFormat;
 import javax.swing.*;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 
 public class MainLayout extends JFrame implements ActionListener
 {
-    private static final String[] buttonNames = {
-            "ln", "abs", "sign", "cot", "<-",
-            "log", "sin", "cos", "tan", "mod",
-            "y^x", "n!", "sqrt", "1/x", "/",
-            "x^2", "7", "8", "9", "*",
-            "Clear", "4", "5", "6", "-",
-            "Drop", "1", "2", "3", "+",
-            "Swap", "0", ".", "+/-", "Enter"
-    };
-    private static final String[] validInputBufferKeys = {
-            "0", "1", "2", "3", "4",
-            "5", "6", "7", "8", "9",
-            "."
-    };
-    private static final String[] validOperatorKeys = {
-            "Drop", "Swap", "Clear", "sin",
-            "cos", "tan", "+/-", "1/x",
-            "sqrt", "y^x", "x^2", "/",
-            "*", "-", "+", "ln", "log",
-            "n!", "mod", "abs", "sign",
-            "cot"
-    };
-
     private MainController ctrl;
+    private Buttons buttons = new Buttons();
+    private Screens screens = new Screens();
     private KeyBindings kb;
-
-    private int visibleStackCount = 7;
-
-    private JPanel screenPanel;
-    private JPanel buttonPanel;
-    private JTextPane stackPane;
-    private JTextPane bufferPane;
-    private Color paneBg = new Color(242,255,194);
-    private JButton[] buttons;
     private StringBuilder inputBuffer;
 
     public JPanel mainPanel;
@@ -64,10 +26,9 @@ public class MainLayout extends JFrame implements ActionListener
         this.ctrl = ctrl;
 
         initStringBuilder();
-        initButtons();
-        initScreens();
+        buttons.initButtons(this);
         initMainPanel();
-        updateStackPane();
+        screens.updateStackPane(ctrl.getStack());
 
         pack();
         setResizable(false);
@@ -75,85 +36,19 @@ public class MainLayout extends JFrame implements ActionListener
         kb = new KeyBindings(this);
     }
 
-    // -- initializers -- //
-    private void initScreens()
-    {
-        MutableAttributeSet attr = new SimpleAttributeSet();
-        StyleConstants.setAlignment(attr, StyleConstants.ALIGN_RIGHT);
-        StyleConstants.setFontSize(attr, 16);
-        StyleConstants.setFontFamily(attr, "SansSerif");
-
-        stackPane = new JTextPane();
-        stackPane.setBackground(paneBg);
-        stackPane.setDisabledTextColor(Color.DARK_GRAY);
-        stackPane.setEnabled(false);
-        stackPane.setParagraphAttributes(attr, true);
-
-        StyleConstants.setBold(attr, true);
-
-        bufferPane = new JTextPane();
-        bufferPane.setBackground(paneBg);
-        bufferPane.setDisabledTextColor(Color.BLACK);
-        bufferPane.setEnabled(false);
-        bufferPane.setParagraphAttributes(attr, true);
-
-        /**
-         * screenPanel is a wrapper panel for stackPane
-         * and bufferPane.
-         */
-        screenPanel = new JPanel();
-        screenPanel.setLayout(new BorderLayout(1, 2));
-        screenPanel.add(stackPane, BorderLayout.NORTH);
-        screenPanel.add(bufferPane, BorderLayout.SOUTH);
-    }
-
-    private void initButtons()
-    {
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(7,5,5,5));
-
-        buttons = new JButton[buttonNames.length];
-        for (int c=0; c<buttonNames.length; c++) {
-            buttons[c] = new JButton(buttonNames[c]);
-            buttons[c].addActionListener(this);
-            buttons[c].setPreferredSize(new Dimension(20, 25));
-            //buttons[c].setForeground(Color.BLACK);
-            //buttons[c].setBackground(Color.WHITE);
-            buttonPanel.add(buttons[c]);
-        }
-    }
-
     private void initMainPanel()
     {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(1,2));
-        mainPanel.add(screenPanel, BorderLayout.NORTH);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(screens.getScreenPanel(), BorderLayout.NORTH);
+        mainPanel.add(buttons.getButtonPanel(), BorderLayout.SOUTH);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
-
         setContentPane(mainPanel);
     }
 
     private void initStringBuilder()
     {
        inputBuffer = new StringBuilder();
-    }
-
-    /**
-     * Redraw the stackPane
-     */
-    private void updateStackPane()
-    {
-        StringBuilder output = new StringBuilder();
-        double[] s = ctrl.getStack();
-
-        int length = visibleStackCount;
-        for (int i=length; i>=0; i--) {
-            output.append(s[i]);
-            output.append(" : "+(i+1)+" ");
-            if (i != 0) output.append("\n");
-        }
-        stackPane.setText(output.toString());
     }
 
     // -- commit actions -- //
@@ -175,7 +70,7 @@ public class MainLayout extends JFrame implements ActionListener
             try {
                 ctrl.pushToStack(inputBuffer.toString());
                 initStringBuilder();
-                updateStackPane();
+                screens.updateStackPane(ctrl.getStack());
             } catch (StackOverflowError e) {
                 showErrorMessage(e.getMessage());
             }
@@ -198,7 +93,7 @@ public class MainLayout extends JFrame implements ActionListener
         try {
             ctrl.operateOnStack(k);
             initStringBuilder();
-            updateStackPane();
+            screens.updateStackPane(ctrl.getStack());
         } catch (StackOperationError e) {
             showErrorMessage(e.getMessage());
         }
@@ -216,39 +111,6 @@ public class MainLayout extends JFrame implements ActionListener
             inputBuffer.setLength(inputBuffer.length() -1);
     }
 
-    private void updateInputBufferArea()
-    {
-        bufferPane.setText(inputBuffer.toString());
-    }
-
-    // --- Testers --- //
-    private boolean isValidInputBufferKey(String k)
-    {
-        for (String valid: validInputBufferKeys)
-            if (valid == k)
-                return true;
-        return false;
-    }
-
-    private boolean isValidOperatorKey(String k)
-    {
-        for (String valid : validOperatorKeys)
-            if (valid == k)
-                return true;
-        return false;
-    }
-
-    private boolean isValidInputBufferCommitKey(String k)
-    {
-        return k == "Enter";
-    }
-
-    private boolean isValidInputBufferBackspace(String k)
-    {
-        return k == "<-";
-    }
-
-    // --- event handlers --- //
     public void actionPerformed(ActionEvent event)
     {
         parseInput(event.getActionCommand());
@@ -256,16 +118,16 @@ public class MainLayout extends JFrame implements ActionListener
 
     public void parseInput(String eKey)
     {
-        if (isValidInputBufferKey(eKey)) {
+        if (buttons.isValidInputBufferKey(eKey)) {
             addToInputBuffer(eKey);
-        } else if (isValidInputBufferBackspace(eKey)) {
+        } else if (buttons.isValidInputBufferBackspace(eKey)) {
             deleteFromInputBuffer();
-        } else if (isValidInputBufferCommitKey(eKey)) {
+        } else if (buttons.isValidInputBufferCommitKey(eKey)) {
             commitInputBuffer();
-        } else if (isValidOperatorKey(eKey)) {
+        } else if (buttons.isValidOperatorKey(eKey)) {
             commitOperatorKey(eKey);
         }
-        updateInputBufferArea();
+        screens.updateInputBufferArea(inputBuffer.toString());
     }
 
     public void showErrorMessage(String str)

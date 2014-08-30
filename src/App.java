@@ -14,7 +14,7 @@ public class App {
         View.MainLayout ml = new MainLayout(ctrl);
 
         ml.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ml.setSize(400,440);
+        ml.setSize(400,460);
         ml.setVisible(true);
     }
 }
