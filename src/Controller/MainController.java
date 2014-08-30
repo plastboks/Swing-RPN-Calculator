@@ -8,7 +8,7 @@ import Model.Stack;
 
 public class MainController {
 
-    private Stack stack = new Stack(10);
+    private Stack stack = new Stack(100);
 
     public double[] getStack()
     {

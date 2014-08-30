@@ -44,6 +44,7 @@ public class KeyBindings {
             final String id = genUUID();
 
             Action action = new AbstractAction(){
+                @Override
                 public void actionPerformed(ActionEvent e){
                     mainLayout.parseInput(validNumKeys[y]);
                 }
