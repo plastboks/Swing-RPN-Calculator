@@ -12,7 +12,7 @@ public class Buttons extends JFrame
 {
 
     private static final String[] mainButtonNames = {
-            "sin", "cos", "tan", "sign", "cot",
+            "sin", "cos", "tan", "π", "e",
             "mod", "n!", "sqrt", "1/x", "/",
             "ln", "7", "8", "9", "*",
             "log", "4", "5", "6", "-",
@@ -22,13 +22,13 @@ public class Buttons extends JFrame
     private static final String[] stackButtonNames = {
             "Clear", "Drop", "Swap", "<-"
     };
-    private static final String[] trigModes = {
+    private static final String[] trigModesNames = {
             "DEG", "RAD", "GRAD"
     };
     private static final String[] validInputBufferKeys = {
             "0", "1", "2", "3", "4",
             "5", "6", "7", "8", "9",
-            "."
+            ".", "π", "e"
     };
     private static final String[] validOperatorKeys = {
             "Drop", "Swap", "Clear", "sin",
@@ -43,7 +43,7 @@ public class Buttons extends JFrame
     public void initButtons(ActionListener al)
     {
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BorderLayout(1, 2));
+        buttonPanel.setLayout(new BorderLayout(1, 3));
 
         JPanel stackKeys = new JPanel();
         stackKeys.setLayout(new GridLayout(1, 4, 5, 5));
@@ -53,6 +53,20 @@ public class Buttons extends JFrame
             stackButtons[c].addActionListener(al);
             stackButtons[c].setPreferredSize(new Dimension(20, 25));
             stackKeys.add(stackButtons[c]);
+        }
+
+        JPanel trigRadios = new JPanel();
+        //trigRadios.setLayout(new GridLayout(1, th, 5, 5));
+        JRadioButton[] trigRadioButtons = new JRadioButton[trigModesNames.length];
+        ButtonGroup trigGroup = new ButtonGroup();
+        for (int c=0; c<trigModesNames.length; c++) {
+            trigRadioButtons[c] = new JRadioButton(trigModesNames[c]);
+            if (c == 0) trigRadioButtons[c].setSelected(true);
+            // GRAD mode is not implemented... yet
+            if (c == 2) break; //trigRadioButtons[c].setEnabled(false);
+            trigRadioButtons[c].addActionListener(al);
+            trigGroup.add(trigRadioButtons[c]);
+            trigRadios.add(trigRadioButtons[c]);
         }
 
         JPanel mainKeys = new JPanel();
@@ -65,6 +79,7 @@ public class Buttons extends JFrame
             mainKeys.add(mainButtons[c]);
         }
         buttonPanel.add(stackKeys, BorderLayout.NORTH);
+        buttonPanel.add(trigRadios, BorderLayout.WEST);
         buttonPanel.add(mainKeys, BorderLayout.SOUTH);
     }
 
@@ -108,5 +123,13 @@ public class Buttons extends JFrame
     public boolean isValidInputBufferBackspace(String k)
     {
         return k == "<-";
+    }
+
+    public boolean isValidTrigModeKey(String k)
+    {
+        for (String valid : trigModesNames)
+            if (valid == k)
+                return true;
+        return false;
     }
 }

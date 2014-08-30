@@ -158,22 +158,49 @@ public class Stack {
         push(Math.pow(base, exp));
     }
 
-    public void sin()
+    public void sin(String trigMode)
     {
         if (tos < 0) return;
-        push(Math.sin(pop()));
+        switch (trigMode) {
+            case "DEG":
+                push(Math.sin(Math.toRadians(pop())));
+                return;
+            case "RAD":
+                push(Math.sin(pop()));
+                return;
+            case "GRAD":
+                return;
+        }
     }
 
-    public void cos()
+    public void cos(String trigMode)
     {
         if (tos < 0) return;
-        push(Math.cos(pop()));
+        switch (trigMode) {
+            case "DEG":
+                push(Math.cos(Math.toRadians(pop())));
+                return;
+            case "RAD":
+                push(Math.cos(pop()));
+                return;
+            case "GRAD":
+                return;
+        }
     }
 
-    public void tan()
+    public void tan(String trigMode)
     {
         if (tos < 0) return;
-        push(Math.tan(pop()));
+        switch (trigMode) {
+            case "DEG":
+                push(Math.tan(Math.toDegrees(pop())));
+                return;
+            case "RAD":
+                push(Math.tan(pop()));
+                return;
+            case "GRAD":
+                return;
+        }
     }
 
     public void ln()
@@ -210,7 +237,7 @@ public class Stack {
         push(Math.signum(pop()));
     }
 
-    public void cot()
+    public void cot(String trigMode)
     {
         if (tos < 0) return;
         push(Math.cosh(pop()));

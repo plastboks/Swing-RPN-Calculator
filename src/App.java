@@ -4,17 +4,14 @@
 
 import Controller.MainController;
 import View.MainLayout;
-import javax.swing.JFrame;
 
 public class App {
 
     public static void main(String[] args)
     {
         Controller.MainController ctrl = new MainController();
-        View.MainLayout ml = new MainLayout(ctrl);
+        View.MainLayout ml = new MainLayout(ctrl, "RPN Calculator");
 
-        ml.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ml.setSize(400,460);
         ml.setVisible(true);
     }
 }

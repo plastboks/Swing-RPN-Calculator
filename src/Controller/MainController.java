@@ -23,7 +23,7 @@ public class MainController {
         stack.push(Double.parseDouble(str));
     }
 
-    public void operateOnStack(String key) throws
+    public void operateOnStack(String key, String trigMode) throws
             StackOperationError
     {
         /**
@@ -52,13 +52,13 @@ public class MainController {
                 stack.pow(2);
                 return;
             case "sin":
-                stack.sin();
+                stack.sin(trigMode);
                 return;
             case "cos":
-                stack.cos();
+                stack.cos(trigMode);
                 return;
             case "tan":
-                stack.tan();
+                stack.tan(trigMode);
                 return;
             case "ln":
                 stack.ln();
@@ -76,7 +76,7 @@ public class MainController {
                 stack.sign();
                 return;
             case "cot":
-                stack.cot();
+                stack.cot(trigMode);
                 return;
         }
         /**

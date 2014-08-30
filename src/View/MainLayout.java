@@ -15,25 +15,26 @@ public class MainLayout extends JFrame implements ActionListener
     private MainController ctrl;
     private Buttons buttons = new Buttons();
     private Screens screens = new Screens();
-    private KeyBindings kb;
     private StringBuilder inputBuffer;
+    private String trigMode = "DEG";
 
     public JPanel mainPanel;
 
-    public MainLayout(MainController ctrl)
+    public MainLayout(MainController ctrl, String title)
     {
-        super("RPN Calculator");
+        super(title);
         this.ctrl = ctrl;
-
         initStringBuilder();
         buttons.initButtons(this);
         initMainPanel();
         screens.updateStackPane(ctrl.getStack());
+        new KeyBindings(this);
 
         pack();
         setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400,470);
 
-        kb = new KeyBindings(this);
     }
 
     private void initMainPanel()
@@ -91,7 +92,7 @@ public class MainLayout extends JFrame implements ActionListener
         }
         commitInputBuffer();
         try {
-            ctrl.operateOnStack(k);
+            ctrl.operateOnStack(k, trigMode);
             initStringBuilder();
             screens.updateStackPane(ctrl.getStack());
         } catch (StackOperationError e) {
@@ -102,7 +103,12 @@ public class MainLayout extends JFrame implements ActionListener
     // --- Input buffers 'CRUD' --- //
     private void addToInputBuffer(String key)
     {
-        inputBuffer.append(key);
+        if (key == "π")
+            inputBuffer.append(Math.PI);
+        else if (key == "e")
+            inputBuffer.append(Math.E);
+        else
+            inputBuffer.append(key);
     }
 
     private void deleteFromInputBuffer()
@@ -126,6 +132,8 @@ public class MainLayout extends JFrame implements ActionListener
             commitInputBuffer();
         } else if (buttons.isValidOperatorKey(eKey)) {
             commitOperatorKey(eKey);
+        } else if (buttons.isValidTrigModeKey(eKey)) {
+            trigMode = eKey;
         }
         screens.updateInputBufferArea(inputBuffer.toString());
     }
