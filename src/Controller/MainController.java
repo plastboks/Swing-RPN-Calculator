@@ -20,51 +20,66 @@ public class MainController {
         stack.push(Double.parseDouble(str));
     }
 
-    public void operateOnStack(String key)
+    public void operateOnStack(String key) throws
+            StackOperationError
     {
+        /**
+         * Operation that demands at least one element in stack
+         */
+        if (stack.getTos() < 0)
+            throw new StackOperationError("Not enough elements in "+
+                                          "stack for this operation");
+        switch (key) {
+            case "Drop":
+                stack.pop();
+                return;
+            case "Clear":
+                stack.clear();
+                return;
+            case "Sqrt":
+                stack.sqrt();
+                return;
+            case "+/-":
+                stack.toggleScale();
+                return;
+            case "1/x":
+                stack.reciprocal();
+                return;
+            case "Sin":
+                stack.sin();
+                return;
+            case "Cos":
+                stack.cos();
+                return;
+            case "Tan":
+                stack.tan();
+                return;
+        }
+        /**
+         * Operation that demands at least two elements in stack
+         */
+        if (stack.getTos() <= 0)
+            throw new StackOperationError("Not enough elements in "+
+                                          "stack for this operation");
         switch (key) {
             case "*":
                 stack.multiply();
-                break;
+                return;
             case "/":
                 stack.divide();
-                break;
+                return;
             case "+":
                 stack.addition();
-                break;
+                return;
             case "-":
                 stack.subtract();
-                break;
-            case "Drop":
-                stack.pop();
-                break;
-            case "Swap":
-                stack.swap();
-                break;
-            case "Clear":
-                stack.clear();
-                break;
-            case "Sqrt":
-                stack.sqrt();
-                break;
-            case "+/-":
-                stack.toggleScale();
-                break;
-            case "1/x":
-                stack.reciprocal();
-                break;
+                return;
             case "Y^x":
                 stack.pow();
-                break;
-            case "Sin":
-                stack.sin();
-                break;
-            case "Cos":
-                stack.cos();
-                break;
-            case "Tan":
-                stack.tan();
-                break;
+                return;
+            case "Swap":
+                stack.swap();
+                return;
         }
     }
 }

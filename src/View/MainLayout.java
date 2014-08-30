@@ -7,6 +7,8 @@
 package View;
 
 import Controller.MainController;
+import Controller.StackOperationError;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -165,9 +167,19 @@ public class MainLayout extends JFrame implements ActionListener
 
     private void commitOperatorKey(String k)
     {
-        ctrl.operateOnStack(k);
-        initStringBuilder();
-        updateStackPane();
+        if (inputBuffer.length() > 0) {
+            ctrl.pushToStack(inputBuffer.toString());
+        }
+        try {
+            ctrl.operateOnStack(k);
+            initStringBuilder();
+            updateStackPane();
+        } catch (StackOperationError e) {
+            JOptionPane.showMessageDialog(this,
+                    e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // --- Input buffers 'CRUD' --- //
@@ -188,6 +200,11 @@ public class MainLayout extends JFrame implements ActionListener
     private void updateInputBufferArea()
     {
         bufferPane.setText(inputBuffer.toString());
+    }
+
+    private void clearAndUpdatePanes()
+    {
+
     }
 
     // --- Testers --- //
