@@ -8,15 +8,18 @@ import Model.Stack;
 
 public class MainController {
 
-    private Stack stack = new Stack(100);
+    private Stack stack = new Stack(10);
 
     public double[] getStack()
     {
         return stack.getReverseStack();
     }
 
-    public void pushToStack(String str)
+    public void pushToStack(String str) throws
+            StackOverflowError
     {
+        if (stack.getSize() -1 == stack.getTos())
+            throw new StackOverflowError("Stack Overflow!");
         stack.push(Double.parseDouble(str));
     }
 

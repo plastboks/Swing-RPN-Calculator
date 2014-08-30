@@ -36,6 +36,11 @@ public class Stack {
         return tos;
     }
 
+    public int getSize()
+    {
+        return size;
+    }
+
     public double[] getReverseStack()
     {
         double[] revStack = new double[size];

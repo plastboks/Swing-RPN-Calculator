@@ -11,6 +11,7 @@ import Controller.StackOperationError;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Arc2D;
 import java.text.DecimalFormat;
 import javax.swing.*;
 import javax.swing.text.MutableAttributeSet;
@@ -159,26 +160,37 @@ public class MainLayout extends JFrame implements ActionListener
     private void commitInputBuffer()
     {
         if (inputBuffer.length() > 0) {
-            ctrl.pushToStack(inputBuffer.toString());
-            initStringBuilder();
-            updateStackPane();
+            /**
+             * Test inputbuffer for parse errors.
+             */
+            try {
+                Double.parseDouble(inputBuffer.toString());
+            } catch (NumberFormatException e) {
+                showErrorMessage(e.getMessage());
+                return;
+            }
+            /**
+             * Try to commit inputbuffer to stack.
+             */
+            try {
+                ctrl.pushToStack(inputBuffer.toString());
+                initStringBuilder();
+                updateStackPane();
+            } catch (StackOverflowError e) {
+                showErrorMessage(e.getMessage());
+            }
         }
     }
 
     private void commitOperatorKey(String k)
     {
-        if (inputBuffer.length() > 0) {
-            ctrl.pushToStack(inputBuffer.toString());
-        }
+        commitInputBuffer();
         try {
             ctrl.operateOnStack(k);
             initStringBuilder();
             updateStackPane();
         } catch (StackOperationError e) {
-            JOptionPane.showMessageDialog(this,
-                    e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            showErrorMessage(e.getMessage());
         }
     }
 
@@ -252,5 +264,13 @@ public class MainLayout extends JFrame implements ActionListener
             commitOperatorKey(eKey);
         }
         updateInputBufferArea();
+    }
+
+    public void showErrorMessage(String str)
+    {
+        JOptionPane.showMessageDialog(this,
+                str,
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 }
