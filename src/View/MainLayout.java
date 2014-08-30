@@ -1,5 +1,5 @@
 /**
- * Created by alex on 8/28/14.o
+ * Created by alex on 8/28/14.
  *
  * This is the projects main (and only) layout file.
  */
@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 import javax.swing.*;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 public class MainLayout extends JFrame implements ActionListener
 {
@@ -44,6 +47,7 @@ public class MainLayout extends JFrame implements ActionListener
     private JPanel buttonPanel;
     private JTextPane stackPane;
     private JTextPane bufferPane;
+    private Color paneBg = new Color(242,255,194);
     private JButton[] buttons;
 
     public JPanel mainPanel;
@@ -60,21 +64,37 @@ public class MainLayout extends JFrame implements ActionListener
         initMainPanel();
         updateStackArea();
 
+        pack();
+        setResizable(false);
+
         kb = new KeyBindings(this);
     }
 
     private void initScreens()
     {
+        MutableAttributeSet attr = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attr, StyleConstants.ALIGN_RIGHT);
+        StyleConstants.setFontSize(attr, 16);
+        StyleConstants.setFontFamily(attr, "SansSerif");
+
         stackPane = new JTextPane();
-        stackPane.setBackground(Color.WHITE);
-        stackPane.setDisabledTextColor(Color.BLACK);
+        stackPane.setBackground(paneBg);
+        stackPane.setDisabledTextColor(Color.DARK_GRAY);
         stackPane.setEnabled(false);
+        stackPane.setParagraphAttributes(attr, true);
+
+        StyleConstants.setBold(attr, true);
 
         bufferPane = new JTextPane();
-        bufferPane.setBackground(Color.WHITE);
+        bufferPane.setBackground(paneBg);
         bufferPane.setDisabledTextColor(Color.BLACK);
         bufferPane.setEnabled(false);
+        bufferPane.setParagraphAttributes(attr, true);
 
+        /**
+         * screenPanel is a wrapper panel for stackPane
+         * and bufferPane.
+         */
         screenPanel = new JPanel();
         screenPanel.setLayout(new BorderLayout(1, 2));
         screenPanel.add(stackPane, BorderLayout.NORTH);
@@ -91,6 +111,8 @@ public class MainLayout extends JFrame implements ActionListener
             buttons[c] = new JButton(buttonNames[c]);
             buttons[c].addActionListener(this);
             buttons[c].setPreferredSize(new Dimension(20, 25));
+            //buttons[c].setForeground(Color.BLACK);
+            //buttons[c].setBackground(Color.WHITE);
             buttonPanel.add(buttons[c]);
         }
     }
@@ -103,9 +125,7 @@ public class MainLayout extends JFrame implements ActionListener
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
 
-        this.setContentPane(mainPanel);
-        this.pack();
-        this.setResizable(false);
+        setContentPane(mainPanel);
     }
 
     private void initStringBuilder()
@@ -121,8 +141,8 @@ public class MainLayout extends JFrame implements ActionListener
 
         int length = visibleStackCount;
         for (int i=length; i>=0; i--) {
-            output.append(i+1+":   ");
             output.append(df.format(s[i]));
+            output.append(" : "+(i+1)+" ");
             if (i != 0) output.append("\n");
         }
         stackPane.setText(output.toString());
