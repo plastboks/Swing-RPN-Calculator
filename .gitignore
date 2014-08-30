@@ -1,6 +1,7 @@
 *.swp
 /.idea/workspace.xml
 /.idea/libraries
+/.idea/dictionaries
 /out
 rpncalculator.properties
 rpncalculator.xml
