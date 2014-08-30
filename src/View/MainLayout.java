@@ -22,8 +22,8 @@ public class MainLayout extends JFrame implements ActionListener
 {
     private static final String[] buttonNames = {
             "Clear", "Drop", "Swap", "Bcksp",
-            "π", "Sin", "Cos", "Tan",
-            "Y^x", "Sqrt", "1/x", "/",
+            "y^x", "Sin", "Cos", "Tan",
+            "x^2", "Sqrt", "1/x", "/",
             "7", "8", "9", "*",
             "4", "5", "6", "-",
             "1", "2", "3", "+",
@@ -32,13 +32,13 @@ public class MainLayout extends JFrame implements ActionListener
     private static final String[] validInputBufferKeys = {
             "0", "1", "2", "3", "4",
             "5", "6", "7", "8", "9",
-            ".", "π"
+            "."
     };
     private static final String[] validOperatorKeys = {
             "Drop", "Swap", "Clear", "Sin",
             "Cos", "Tan", "+/-", "1/x",
-            "Sqrt", "Y^x", "/", "*",
-            "-", "+"
+            "Sqrt", "y^x", "x^2", "/",
+            "*", "-", "+"
     };
 
     private MainController ctrl;
@@ -197,10 +197,7 @@ public class MainLayout extends JFrame implements ActionListener
     // --- Input buffers 'CRUD' --- //
     private void addToInputBuffer(String key)
     {
-        if (key == "π")
-            inputBuffer.append(df.format(Math.PI));
-        else
-            inputBuffer.append(key);
+        inputBuffer.append(key);
     }
 
     private void deleteFromInputBuffer()

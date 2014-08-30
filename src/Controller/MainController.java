@@ -48,6 +48,9 @@ public class MainController {
             case "1/x":
                 stack.reciprocal();
                 return;
+            case "x^2":
+                stack.pow(2);
+                return;
             case "Sin":
                 stack.sin();
                 return;
@@ -77,7 +80,7 @@ public class MainController {
             case "-":
                 stack.subtract();
                 return;
-            case "Y^x":
+            case "y^x":
                 stack.pow();
                 return;
             case "Swap":

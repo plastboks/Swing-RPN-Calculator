@@ -139,6 +139,14 @@ public class Stack {
         push(Math.pow(base, exponent));
     }
 
+    public void pow(int exp)
+    {
+        if (tos < 0) return;
+
+        double base = pop();
+        push(Math.pow(base, exp));
+    }
+
     public void sin()
     {
         if (tos < 0) return;
