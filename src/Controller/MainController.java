@@ -10,14 +10,14 @@ public class MainController {
 
     private Stack stack = new Stack(100);
 
-    public void pushToStack(String str)
-    {
-        stack.push(Double.parseDouble(str));
-    }
-
     public double[] getStack()
     {
         return stack.getReverseStack();
+    }
+
+    public void pushToStack(String str)
+    {
+        stack.push(Double.parseDouble(str));
     }
 
     public void operateOnStack(String key)

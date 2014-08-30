@@ -29,23 +29,10 @@ public class KeyBindings {
         am = mainLayout.mainPanel.getActionMap();
 
         addNumKeys();
-        addCustomKey(KeyEvent.VK_ENTER, 0, "Enter");
-        addCustomKey(KeyEvent.VK_BACK_SPACE, 0, "Bcksp");
-        addCustomKey(KeyEvent.VK_ASTERISK, 0, "*");
-        addCustomKey(KeyEvent.VK_DIVIDE, 0, "/");
-        addCustomKey(KeyEvent.VK_SLASH, 0, "/");
-        addCustomKey(KeyEvent.VK_PLUS, 0, "+");
-        addCustomKey(KeyEvent.VK_MINUS, 0, "-");
-        addCustomKey(KeyEvent.VK_PERIOD, 0, ".");
-
-        /**
-         * These keys are for an US layout keyboard.
-         */
-        addCustomKey(KeyEvent.VK_8, Event.SHIFT_MASK, "*");
-        addCustomKey(KeyEvent.VK_EQUALS, Event.SHIFT_MASK, "+");
+        addCustomKeys();
     }
 
-    private final String genUUID()
+    private String genUUID()
     {
         return UUID.randomUUID().toString();
     }
@@ -55,6 +42,7 @@ public class KeyBindings {
         for (int i=0; i<validNumKeys.length; i++) {
             final int y = i;
             final String id = genUUID();
+
             Action action = new AbstractAction(){
                 public void actionPerformed(ActionEvent e){
                     mainLayout.parseInput(validNumKeys[y]);
@@ -77,5 +65,25 @@ public class KeyBindings {
         };
         im.put(KeyStroke.getKeyStroke(keyEvent, mask), id);
         am.put(id, action);
+    }
+
+    private void addCustomKeys()
+    {
+        addCustomKey(KeyEvent.VK_ENTER, 0, "Enter");
+        addCustomKey(KeyEvent.VK_BACK_SPACE, 0, "Bcksp");
+        addCustomKey(KeyEvent.VK_ASTERISK, 0, "*");
+        addCustomKey(KeyEvent.VK_DIVIDE, 0, "/");
+        addCustomKey(KeyEvent.VK_SLASH, 0, "/");
+        addCustomKey(KeyEvent.VK_PLUS, 0, "+");
+        addCustomKey(KeyEvent.VK_MINUS, 0, "-");
+        addCustomKey(KeyEvent.VK_PERIOD, 0, ".");
+
+        /**
+         * Keys for US layout keyboard.
+         * Need to find a better way to access these keys
+         * in a non 'hardcoded' way.
+         */
+        addCustomKey(KeyEvent.VK_8, Event.SHIFT_MASK, "*");
+        addCustomKey(KeyEvent.VK_EQUALS, Event.SHIFT_MASK, "+");
     }
 }

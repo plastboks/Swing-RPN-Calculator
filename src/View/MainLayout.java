@@ -50,8 +50,10 @@ public class MainLayout extends JFrame implements ActionListener
     private Color paneBg = new Color(242,255,194);
     private JButton[] buttons;
 
-    public JPanel mainPanel;
     private StringBuilder inputBuffer;
+    private DecimalFormat df = new DecimalFormat("0.00####");
+
+    public JPanel mainPanel;
 
     public MainLayout(MainController ctrl)
     {
@@ -62,7 +64,7 @@ public class MainLayout extends JFrame implements ActionListener
         initButtons();
         initScreens();
         initMainPanel();
-        updateStackArea();
+        updateStackPane();
 
         pack();
         setResizable(false);
@@ -70,6 +72,7 @@ public class MainLayout extends JFrame implements ActionListener
         kb = new KeyBindings(this);
     }
 
+    // -- initializers -- //
     private void initScreens()
     {
         MutableAttributeSet attr = new SimpleAttributeSet();
@@ -133,9 +136,11 @@ public class MainLayout extends JFrame implements ActionListener
        inputBuffer = new StringBuilder();
     }
 
-    private void updateStackArea()
+    /**
+     * Redraw the stackPane
+     */
+    private void updateStackPane()
     {
-        DecimalFormat df = new DecimalFormat("0.00####");
         StringBuilder output = new StringBuilder();
         double[] s = ctrl.getStack();
 
@@ -148,6 +153,44 @@ public class MainLayout extends JFrame implements ActionListener
         stackPane.setText(output.toString());
     }
 
+    // -- commit actions -- //
+    private void commitInputBuffer()
+    {
+        if (inputBuffer.length() > 0) {
+            ctrl.pushToStack(inputBuffer.toString());
+            initStringBuilder();
+            updateStackPane();
+        }
+    }
+
+    private void commitOperatorKey(String k)
+    {
+        ctrl.operateOnStack(k);
+        initStringBuilder();
+        updateStackPane();
+    }
+
+    // --- Input buffers 'CRUD' --- //
+    private void addToInputBuffer(String key)
+    {
+        if (key == "π")
+            inputBuffer.append(df.format(Math.PI));
+        else
+            inputBuffer.append(key);
+    }
+
+    private void deleteFromInputBuffer()
+    {
+        if (inputBuffer.length() > 0)
+            inputBuffer.setLength(inputBuffer.length() -1);
+    }
+
+    private void updateInputBufferArea()
+    {
+        bufferPane.setText(inputBuffer.toString());
+    }
+
+    // --- Testers --- //
     private boolean isValidInputBufferKey(String k)
     {
         for (String valid: validInputBufferKeys)
@@ -174,6 +217,7 @@ public class MainLayout extends JFrame implements ActionListener
         return k == "Bcksp";
     }
 
+    // --- event handlers --- //
     public void actionPerformed(ActionEvent event)
     {
         parseInput(event.getActionCommand());
@@ -181,34 +225,15 @@ public class MainLayout extends JFrame implements ActionListener
 
     public void parseInput(String eKey)
     {
-        /**
-         * Starting to get real ugly this...
-         * Consider refactoring.
-         */
         if (isValidInputBufferKey(eKey)) {
-            if (eKey == "π")
-                inputBuffer.append(Math.PI);
-            else
-                inputBuffer.append(eKey);
+            addToInputBuffer(eKey);
         } else if (isValidInputBufferBackspace(eKey)) {
-            if (inputBuffer.length() > 0)
-                inputBuffer.setLength(inputBuffer.length() -1);
+            deleteFromInputBuffer();
         } else if (isValidInputBufferCommitKey(eKey)) {
-            if (inputBuffer.length() > 0) {
-                ctrl.pushToStack(inputBuffer.toString());
-                initStringBuilder();
-                updateStackArea();
-            }
+            commitInputBuffer();
         } else if (isValidOperatorKey(eKey)) {
-            ctrl.operateOnStack(eKey);
-            initStringBuilder();
-            updateStackArea();
+            commitOperatorKey(eKey);
         }
         updateInputBufferArea();
-    }
-
-    public void updateInputBufferArea()
-    {
-        bufferPane.setText(inputBuffer.toString());
     }
 }
