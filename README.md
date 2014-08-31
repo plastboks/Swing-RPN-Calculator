@@ -13,5 +13,4 @@ Clone this repo through [IntelliJ IDEA](http://www.jetbrains.com/idea) ought to 
 
 About
 =====
-This project is just a small 'fooling around with Java and swing' project. Nothing too serious. My secondary objective with this project was to get familiar with the [IntelliJ IDEA](http://www.jetbrains.com/idea).
-
+This project is just a small 'fooling around with Java and swing' project. Nothing too serious. My secondary objective with this project was to get familiar with the [IntelliJ IDEA](http://www.jetbrains.com/idea). After initial commits, this project will most likely die off into the abyss.
