@@ -70,6 +70,7 @@ public class KeyBindings {
 
     private void addCustomKeys()
     {
+        /* Base functions */
         addCustomKey(KeyEvent.VK_ENTER, 0, "Enter");
         addCustomKey(KeyEvent.VK_BACK_SPACE, 0, "<-");
         addCustomKey(KeyEvent.VK_ASTERISK, 0, "*");
@@ -78,6 +79,22 @@ public class KeyBindings {
         addCustomKey(KeyEvent.VK_PLUS, 0, "+");
         addCustomKey(KeyEvent.VK_MINUS, 0, "-");
         addCustomKey(KeyEvent.VK_PERIOD, 0, ".");
+
+        /* Trig functions */
+        addCustomKey(KeyEvent.VK_S, 0, "sin");
+        addCustomKey(KeyEvent.VK_C, 0, "cos");
+        addCustomKey(KeyEvent.VK_T, 0, "tan");
+
+        /* Stack functions */
+        addCustomKey(KeyEvent.VK_D, 0, "Drop");
+
+        /* Various functions */
+        addCustomKey(KeyEvent.VK_M, 0, "mod");
+        addCustomKey(KeyEvent.VK_R, 0, "1/x");
+        addCustomKey(KeyEvent.VK_F, 0, "n!");
+        addCustomKey(KeyEvent.VK_L, 0, "ln");
+        addCustomKey(KeyEvent.VK_P, 0, "π");
+        addCustomKey(KeyEvent.VK_E, 0, "e");
 
         /**
          * Keys for US layout keyboard.
