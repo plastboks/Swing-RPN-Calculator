@@ -62,8 +62,6 @@ public class Buttons extends JFrame
         for (int c=0; c<trigModesNames.length; c++) {
             trigRadioButtons[c] = new JRadioButton(trigModesNames[c]);
             if (c == 0) trigRadioButtons[c].setSelected(true);
-            // GRAD mode is not implemented... yet
-            if (c == 2) break; //trigRadioButtons[c].setEnabled(false);
             trigRadioButtons[c].addActionListener(al);
             trigGroup.add(trigRadioButtons[c]);
             trigRadios.add(trigRadioButtons[c]);

@@ -9,6 +9,7 @@ public class Stack {
     private double stack[];
     private int size;
     private int tos;
+    private double radToDeg = Math.PI/200;
 
     public Stack(int size)
     {
@@ -169,6 +170,7 @@ public class Stack {
                 push(Math.sin(pop()));
                 return;
             case "GRAD":
+                push(Math.sin(pop()*radToDeg));
                 return;
         }
     }
@@ -184,6 +186,7 @@ public class Stack {
                 push(Math.cos(pop()));
                 return;
             case "GRAD":
+                push(Math.cos(pop()*radToDeg));
                 return;
         }
     }
@@ -199,6 +202,7 @@ public class Stack {
                 push(Math.tan(pop()));
                 return;
             case "GRAD":
+                push(Math.tan(pop()*radToDeg));
                 return;
         }
     }
