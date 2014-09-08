@@ -2,7 +2,7 @@
  * Created by alex on 8/29/14.
  */
 
-package View;
+package view;
 
 import javax.swing.*;
 import java.awt.*;

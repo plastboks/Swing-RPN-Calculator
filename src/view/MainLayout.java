@@ -2,10 +2,10 @@
  * Created by alex on 8/28/14.
  */
 
-package View;
+package view;
 
-import Controller.MainController;
-import Controller.StackOperationError;
+import controller.MainController;
+import controller.StackOperationError;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

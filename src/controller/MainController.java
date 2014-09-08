@@ -2,9 +2,9 @@
  * Created by alex on 8/28/14.
  */
 
-package Controller;
+package controller;
 
-import Model.Stack;
+import model.Stack;
 
 public class MainController {
 

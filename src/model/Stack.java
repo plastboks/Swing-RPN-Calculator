@@ -2,7 +2,7 @@
  * Created by alex on 8/28/14.
  */
 
-package Model;
+package model;
 
 public class Stack {
 
