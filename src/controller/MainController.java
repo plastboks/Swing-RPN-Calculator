@@ -5,10 +5,12 @@
 package controller;
 
 import model.Stack;
+import model.Stackend;
 
 public class MainController {
 
     private Stack stack = new Stack(100);
+    private Stackend<Integer> stackend = new Stackend<Integer>();
 
     public double[] getStack()
     {
