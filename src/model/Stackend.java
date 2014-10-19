@@ -24,6 +24,11 @@ public class Stackend<Item> implements Iterable<Item>
         return first == null;
     }
 
+    public boolean hasTwo()
+    {
+        return first.next != null;
+    }
+
     public int size()
     {
         return N;
