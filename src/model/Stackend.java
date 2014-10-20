@@ -8,7 +8,7 @@ package model;
 
 import java.util.Iterator;
 
-public class Stackend<Item> implements Iterable<Item>
+public class Stackend<Item extends Number> implements Iterable<Item>
 {
     private Node first;
     private int N;

@@ -3,7 +3,7 @@ package model;
 /**
  * Created by alex on 10/19/14.
  */
-public class StackArithmetic extends Stackend {
+public class StackArithmetic<T extends Number> extends Stackend<T> {
 
     private double radToDeg = Math.PI/200;
 
@@ -11,17 +11,15 @@ public class StackArithmetic extends Stackend {
     {
         if (hasTwo() == false) return;
 
-        double rightOperand = pop();
-        double leftOperand = pop();
-        push(leftOperand * rightOperand);
+        push(pop() * pop());
     }
 
     public void divide()
     {
         if (hasTwo() == false) return;
 
-        double rightOperand = pop();
-        double leftOperand = pop();
+        T rightOperand = pop();
+        T leftOperand = pop();
         push(leftOperand / rightOperand);
     }
 
@@ -29,8 +27,8 @@ public class StackArithmetic extends Stackend {
     {
         if (hasTwo() == false) return;
 
-        double rightOperand = pop();
-        double leftOperand = pop();
+        T rightOperand = pop();
+        T leftOperand = pop();
         push(leftOperand + rightOperand);
     }
 
@@ -38,8 +36,8 @@ public class StackArithmetic extends Stackend {
     {
         if (hasTwo() == false) return;
 
-        double rightOperand = pop();
-        double leftOperand = pop();
+        T rightOperand = pop();
+        T leftOperand = pop();
         push(leftOperand - rightOperand);
     }
 
@@ -47,8 +45,8 @@ public class StackArithmetic extends Stackend {
     {
         if (hasTwo() == false) return;
 
-        double rightOperand = pop();
-        double leftOperand = pop();
+        T rightOperand = pop();
+        T leftOperand = pop();
         push(leftOperand % rightOperand);
     }
 
@@ -56,8 +54,8 @@ public class StackArithmetic extends Stackend {
     {
         if (hasTwo() == false) return;
 
-        double exponent = pop();
-        double base = pop();
+        T exponent = pop();
+        T base = pop();
         push(Math.pow(base, exponent));
     }
 
@@ -72,7 +70,7 @@ public class StackArithmetic extends Stackend {
     {
         if (isEmpty()) return;
 
-        double operand = pop();
+        T operand = pop();
         push(operand-(operand * 2));
     }
 
@@ -86,7 +84,7 @@ public class StackArithmetic extends Stackend {
     {
         if (isEmpty()) return;
 
-        double base = pop();
+        T base = pop();
         push(Math.pow(base, exp));
     }
 
