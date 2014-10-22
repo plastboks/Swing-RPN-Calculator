@@ -34,7 +34,7 @@ public class MainLayout extends JFrame implements ActionListener
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,470);
-
+        setLocationRelativeTo(null);
     }
 
     private void initMainPanel()
