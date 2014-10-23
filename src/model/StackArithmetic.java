@@ -1,91 +1,73 @@
-package model;
-
 /**
  * Created by alex on 10/19/14.
  */
-public class StackArithmetic<T extends Number> extends Stackend<T> {
 
-    private double radToDeg = Math.PI/200;
+package model;
+
+import types.Numeric;
+
+public class StackArithmetic<T extends Numeric<T>> extends Stackend<T> {
 
     public void multiply()
     {
         if (hasTwo() == false) return;
 
-        push(pop() * pop());
+        push(pop().mul(pop()));
     }
 
     public void divide()
     {
         if (hasTwo() == false) return;
 
-        T rightOperand = pop();
-        T leftOperand = pop();
-        push(leftOperand / rightOperand);
+        push(pop().div(pop()));
     }
 
     public void addition()
     {
         if (hasTwo() == false) return;
 
-        T rightOperand = pop();
-        T leftOperand = pop();
-        push(leftOperand + rightOperand);
+        push(pop().add(pop()));
     }
 
     public void subtract()
     {
         if (hasTwo() == false) return;
 
-        T rightOperand = pop();
-        T leftOperand = pop();
-        push(leftOperand - rightOperand);
+        push(pop().sub(pop()));
     }
 
     public void modulus()
     {
         if (hasTwo() == false) return;
 
-        T rightOperand = pop();
-        T leftOperand = pop();
-        push(leftOperand % rightOperand);
+        push(pop().mod(pop()));
     }
 
     public void pow()
     {
         if (hasTwo() == false) return;
 
-        T exponent = pop();
-        T base = pop();
-        push(Math.pow(base, exponent));
+        push(pop().pow(pop()));
     }
 
     // -- one operand functions -- //
     public void sqrt()
     {
         if (isEmpty()) return;
-        push(Math.sqrt(pop()));
+        push(pop().sqrt());
     }
 
     public void toggleScale()
     {
         if (isEmpty()) return;
 
-        T operand = pop();
-        push(operand-(operand * 2));
+        push(pop().toggleScale());
     }
 
     public void reciprocal()
     {
         if (isEmpty()) return;
-        push(1/pop());
-    }
-
-    public void pow(int exp)
-    {
-        if (isEmpty()) return;
-
-        T base = pop();
-        push(Math.pow(base, exp));
+        push(pop().reciprocal());
     }
 
     public void sin(String trigMode)
@@ -93,14 +75,14 @@ public class StackArithmetic<T extends Number> extends Stackend<T> {
         if (isEmpty()) return;
 
         switch (trigMode) {
-            case "DEG":
-                push(Math.sin(Math.toRadians(pop())));
-                return;
             case "RAD":
-                push(Math.sin(pop()));
+                push(pop().sin());
+                return;
+            case "DEG":
+                push(pop().sinDeg());
                 return;
             case "GRAD":
-                push(Math.sin(pop()*radToDeg));
+                push(pop().sinGrad());
                 return;
         }
     }
@@ -110,14 +92,14 @@ public class StackArithmetic<T extends Number> extends Stackend<T> {
         if (isEmpty()) return;
 
         switch (trigMode) {
-            case "DEG":
-                push(Math.cos(Math.toRadians(pop())));
-                return;
             case "RAD":
-                push(Math.cos(pop()));
+                push(pop().cos());
+                return;
+            case "DEG":
+                push(pop().cosDeg());
                 return;
             case "GRAD":
-                push(Math.cos(pop()*radToDeg));
+                push(pop().cosGrad());
                 return;
         }
     }
@@ -127,14 +109,14 @@ public class StackArithmetic<T extends Number> extends Stackend<T> {
         if (isEmpty()) return;
 
         switch (trigMode) {
-            case "DEG":
-                push(Math.tan(Math.toDegrees(pop())));
-                return;
             case "RAD":
-                push(Math.tan(pop()));
+                push(pop().tan());
+                return;
+            case "DEG":
+                push(pop().tanDeg());
                 return;
             case "GRAD":
-                push(Math.tan(pop()*radToDeg));
+                push(pop().tanGrad());
                 return;
         }
     }
@@ -143,45 +125,41 @@ public class StackArithmetic<T extends Number> extends Stackend<T> {
     {
         if (isEmpty()) return;
 
-        push(Math.log(pop()));
+        push(pop().ln());
     }
 
     public void log()
     {
         if (isEmpty()) return;
 
-        push(Math.log10(pop()));
+        push(pop().log());
     }
 
     public void factorial()
     {
         if (isEmpty()) return;
 
-        int f = (int)pop();
-        for (int i=f-1; i>0; i--)
-            f *= i;
-
-        push((double)f);
+        push(pop().fact());
     }
 
     public void abs()
     {
         if (isEmpty()) return;
 
-        push(Math.abs(pop()));
+        push(pop().abs());
     }
 
     public void sign()
     {
         if (isEmpty()) return;
 
-        push(Math.signum(pop()));
+        push(pop().sign());
     }
 
     public void cot(String trigMode)
     {
         if (isEmpty()) return;
 
-        push(Math.cosh(pop()));
+        push(pop().cot());
     }
 }

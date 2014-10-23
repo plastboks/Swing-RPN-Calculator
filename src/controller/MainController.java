@@ -5,12 +5,14 @@
 package controller;
 
 import model.Stack;
+import model.StackArithmetic;
 import model.Stackend;
+import types.RichDouble;
 
 public class MainController {
 
     private Stack stack = new Stack(100);
-    private Stackend<Integer> stackend = new Stackend<Integer>();
+    private StackArithmetic<RichDouble> stackArithmetic = new StackArithmetic<>();
 
     public double[] getStack()
     {

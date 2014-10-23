@@ -6,9 +6,11 @@
 
 package model;
 
+import types.Numeric;
+
 import java.util.Iterator;
 
-public class Stackend<Item extends Number> implements Iterable<Item>
+public class Stackend<Item extends Numeric> implements Iterable<Item>
 {
     private Node first;
     private int N;
