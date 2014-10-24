@@ -36,6 +36,11 @@ public class Stackend<Item extends Numeric> implements Iterable<Item>
         return N;
     }
 
+    public int getTos()
+    {
+        return size();
+    }
+
     public void push(Item item)
     {
         Node oldfirst = first;
