@@ -4,6 +4,8 @@
 
 package view;
 
+import types.RichDouble;
+
 import javax.swing.*;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -60,14 +62,13 @@ public class Screens
         return screenPanel;
     }
 
-    public void updateStackPane(double[] stack)
+    public void updateStackPane(RichDouble[] stack)
     {
         StringBuilder output = new StringBuilder();
-        double[] s = stack;
 
         int length = visibleStackCount;
         for (int i=length; i>=0; i--) {
-            output.append(s[i]);
+            output.append(i < stack.length ? stack[i] : "");
             output.append(" : "+(i+1)+" ");
             if (i != 0) output.append("\n");
         }
