@@ -18,6 +18,11 @@ public class RichDouble implements Numeric<RichDouble>
         return new RichDouble(d);
     }
 
+    public static RichDouble parseDouble(String s)
+    {
+        return RichDouble.of(Double.parseDouble(s));
+    }
+
     @Override
     public RichDouble div(RichDouble other)
     {
@@ -52,6 +57,12 @@ public class RichDouble implements Numeric<RichDouble>
     public RichDouble pow(RichDouble other)
     {
         return RichDouble.of(Math.pow(this.d, other.d));
+    }
+
+    @Override
+    public RichDouble pow2()
+    {
+        return RichDouble.of(Math.pow(this.d, 2));
     }
 
     @Override
@@ -168,6 +179,6 @@ public class RichDouble implements Numeric<RichDouble>
     @Override
     public String toString()
     {
-        return String.format("%s(%s)", "RichDouble", d);
+        return String.format("%s", d);
     }
 }

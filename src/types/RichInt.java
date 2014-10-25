@@ -18,6 +18,11 @@ public class RichInt implements Numeric<RichInt>
         return new RichInt(i);
     }
 
+    public static RichInt parseInt(String s)
+    {
+        return RichInt.of(Integer.parseInt(s));
+    }
+
     @Override
     public RichInt div(RichInt other)
     {
@@ -52,6 +57,12 @@ public class RichInt implements Numeric<RichInt>
     public RichInt pow(RichInt other)
     {
         return RichInt.of((int)Math.pow(this.i, other.i));
+    }
+
+    @Override
+    public RichInt pow2()
+    {
+        return RichInt.of((int)Math.pow(this.i, 2));
     }
 
     @Override
@@ -168,6 +179,6 @@ public class RichInt implements Numeric<RichInt>
     @Override
     public String toString()
     {
-        return String.format("%s(%s)", "RichInt", i);
+        return String.format("%s", i);
     }
 }
