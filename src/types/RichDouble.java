@@ -56,12 +56,13 @@ public class RichDouble implements Numeric<RichDouble>
     @Override
     public RichDouble pow(RichDouble other)
     {
-        return RichDouble.of(Math.pow(this.d, other.d));
+        return RichDouble.of(Math.pow(other.d, this.d));
     }
 
     @Override
     public RichDouble pow2()
     {
+        /* backwards because of stack poping */
         return RichDouble.of(Math.pow(this.d, 2));
     }
 

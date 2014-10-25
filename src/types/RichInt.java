@@ -56,7 +56,8 @@ public class RichInt implements Numeric<RichInt>
     @Override
     public RichInt pow(RichInt other)
     {
-        return RichInt.of((int)Math.pow(this.i, other.i));
+        /* backwards because of stack poping */
+        return RichInt.of((int)Math.pow(other.i, this.i));
     }
 
     @Override
