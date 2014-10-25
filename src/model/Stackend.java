@@ -8,6 +8,7 @@ package model;
 
 import types.Numeric;
 
+import java.lang.reflect.Array;
 import java.util.Iterator;
 
 public class Stackend<Item extends Numeric> implements Iterable<Item>
@@ -65,18 +66,17 @@ public class Stackend<Item extends Numeric> implements Iterable<Item>
 
     public void swap()
     {
-        Item a = first.item;
-        Item b = first.next.item;
-
         Item tmp;
-        tmp = a;
-        a = b;
-        b = tmp;
+        tmp = first.item;
+        first.item = first.next.item;
+        first.next.item = tmp;
     }
 
     public void clear()
     {
-
+        while (!this.isEmpty()) {
+            pop();
+        }
     }
 
     public Iterator<Item> iterator()
