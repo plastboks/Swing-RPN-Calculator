@@ -4,19 +4,23 @@
 
 package controller;
 
-import model.Stack;
 import model.StackArithmetic;
-import model.Stackend;
 import types.RichDouble;
 
 public class MainController {
 
-    private Stack stack = new Stack(100);
-    private StackArithmetic<RichDouble> stackArithmetic = new StackArithmetic<>();
+    private StackArithmetic<RichDouble> stack = new StackArithmetic<>();
 
-    public double[] getStack()
+    public RichDouble[] getStack()
     {
-        return stack.getReverseStack();
+        int i = 0;
+        RichDouble[] tmp = new RichDouble[stack.size()];
+
+        for (RichDouble item: stack) {
+            tmp[i] = item;
+            i++;
+        }
+        return tmp;
     }
 
     public void pushToStack(String str) throws
@@ -24,7 +28,7 @@ public class MainController {
     {
         if (stack.getSize() -1 == stack.getTos())
             throw new StackOverflowError("Stack Overflow!");
-        stack.push(Double.parseDouble(str));
+        stack.push(RichDouble.parseDouble(str));
     }
 
     public void operateOnStack(String key, String trigMode) throws
@@ -53,7 +57,7 @@ public class MainController {
                 stack.reciprocal();
                 return;
             case "x^2":
-                stack.pow(2);
+                stack.pow2();
                 return;
             case "sin":
                 stack.sin(trigMode);
