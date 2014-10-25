@@ -14,6 +14,7 @@ public interface Numeric<T>
     T add(T other);
     T mod(T other);
     T pow(T other);
+    T pow2();
     T sqrt();
     T toggleScale();
     T reciprocal();
