@@ -51,6 +51,12 @@ public class StackArithmetic<T extends Numeric<T>> extends Stackend<T> {
     }
 
     // -- one operand functions -- //
+    public void pow2()
+    {
+        if (isEmpty()) return;
+        push(pop().pow2());
+    }
+
     public void sqrt()
     {
         if (isEmpty()) return;
