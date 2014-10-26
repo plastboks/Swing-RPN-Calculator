@@ -81,6 +81,11 @@ public class Buttons extends JFrame
         buttonPanel.add(mainKeys, BorderLayout.SOUTH);
     }
 
+    public int getHeight()
+    {
+        return buttonPanel.getHeight();
+    }
+
     public JPanel getButtonPanel()
     {
         return buttonPanel;

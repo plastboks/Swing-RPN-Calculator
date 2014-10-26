@@ -57,6 +57,11 @@ public class Screens
         screenPanel.add(bufferPane, BorderLayout.CENTER);
     }
 
+    public int getHeight()
+    {
+        return screenPanel.getHeight();
+    }
+
     public JPanel getScreenPanel()
     {
         return screenPanel;
