@@ -1,7 +1,7 @@
 Swing-RPN-Calculator
 ====================
 A simple Java Swing RPN Calculator I made just because.
-![ScreenShot](static/screenshot.2014-08-30.png)
+![ScreenShot](static/screenshot.2014-10-26.png)
 
 RPN
 ===
