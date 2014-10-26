@@ -37,7 +37,7 @@ public class MainController {
         /**
          * Operation that demands at least one element in stack
          */
-        if (stack.getTos() < 0)
+        if (stack.getTos() <= 0)
             throw new StackOperationError("Not enough elements in "+
                                           "stack for this operation");
         switch (key) {
@@ -90,7 +90,7 @@ public class MainController {
         /**
          * Operation that demands at least two elements in stack
          */
-        if (stack.getTos() <= 0)
+        if (stack.getTos() < 2)
             throw new StackOperationError("Not enough elements in "+
                                           "stack for this operation");
         switch (key) {
