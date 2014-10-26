@@ -9,9 +9,6 @@ public class App {
 
     public static void main(String[] args)
     {
-        MainController ctrl = new MainController();
-        MainLayout ml = new MainLayout(ctrl, "RPN Calculator");
-
-        ml.setVisible(true);
+        new MainLayout(new MainController(), "RPN Calculator");
     }
 }

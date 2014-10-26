@@ -73,17 +73,11 @@ public class Buttons extends JFrame
         for (int c=0; c<mainButtonNames.length; c++) {
             mainButtons[c] = new JButton(mainButtonNames[c]);
             mainButtons[c].addActionListener(al);
-            mainButtons[c].setPreferredSize(new Dimension(20, 25));
             mainKeys.add(mainButtons[c]);
         }
         buttonPanel.add(stackKeys, BorderLayout.NORTH);
         buttonPanel.add(trigRadios, BorderLayout.WEST);
         buttonPanel.add(mainKeys, BorderLayout.SOUTH);
-    }
-
-    public int getHeight()
-    {
-        return buttonPanel.getHeight();
     }
 
     public JPanel getButtonPanel()
