@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RPNCalculator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RPNCalculator_jar</output-path>
+    <root id="archive" name="RPNCalculator.jar">
+      <element id="module-output" name="RPNCalculator" />
+    </root>
+  </artifact>
+</component>
