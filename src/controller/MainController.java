@@ -4,8 +4,9 @@
 
 package controller;
 
+import exception.StackOperationError;
 import model.StackArithmetic;
-import types.RichDouble;
+import type.RichDouble;
 
 public class MainController {
 

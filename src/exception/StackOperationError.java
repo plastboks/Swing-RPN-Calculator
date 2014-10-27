@@ -2,7 +2,7 @@
  * Created by alex on 8/30/14.
  */
 
-package controller;
+package exception;
 
 public class StackOperationError extends Exception {
 

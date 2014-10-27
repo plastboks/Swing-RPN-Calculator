@@ -4,7 +4,7 @@
 
 package view;
 
-import types.RichDouble;
+import type.RichDouble;
 
 import javax.swing.*;
 import javax.swing.text.MutableAttributeSet;

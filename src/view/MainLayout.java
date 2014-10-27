@@ -5,7 +5,7 @@
 package view;
 
 import controller.MainController;
-import controller.StackOperationError;
+import exception.StackOperationError;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

@@ -4,7 +4,7 @@
 
 package model;
 
-import types.Numeric;
+import type.Numeric;
 
 public class StackArithmetic<T extends Numeric<T>> extends Stackend<T> {
 

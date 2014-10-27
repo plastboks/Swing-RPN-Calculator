@@ -2,7 +2,7 @@
  * Created by alex on 10/23/14.
  */
 
-package types;
+package type;
 
 public interface Numeric<T>
 {

@@ -6,9 +6,8 @@
 
 package model;
 
-import types.Numeric;
+import type.Numeric;
 
-import java.lang.reflect.Array;
 import java.util.Iterator;
 
 public class Stackend<Item extends Numeric> implements Iterable<Item>
