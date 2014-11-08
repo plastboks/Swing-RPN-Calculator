@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class Screens
 {
-    private int visibleStackCount = 7;
+    private final int visibleStackCount = 8;
 
     private JPanel screenPanel;
     private JTextPane stackPane;

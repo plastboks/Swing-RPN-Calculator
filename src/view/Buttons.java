@@ -56,7 +56,6 @@ public class Buttons extends JFrame
         }
 
         JPanel trigRadios = new JPanel();
-        //trigRadios.setLayout(new GridLayout(1, th, 5, 5));
         JRadioButton[] trigRadioButtons = new JRadioButton[trigModesNames.length];
         ButtonGroup trigGroup = new ButtonGroup();
         for (int c=0; c<trigModesNames.length; c++) {
